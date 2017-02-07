@@ -6,12 +6,13 @@
     $app = new Silex\Application();
 
     $app->get("/submit-opening", function() {
-        return "<!DOCTYPE html>
+        return "
+        <!DOCTYPE html>
         <html>
         <head>
-            <link rel='stylesheet' href='/../css/bootstrap.css'>
-            <link href='/../css/styles.css' rel='stylesheet' type='text/css'>
+            <link rel='stylesheet' href='bootstrap.css' type='text/css'>
             <title>Submit a Job Opening</title>
+            <link href='styles.css' rel='stylesheet' type='text/css'>
         </head>
         <body>
             <div class='container'>
@@ -42,40 +43,48 @@
                 </form>
             </div>
         </body>
-        </html>";
+        </html>
+        ";
     });
 
     $app->get("/job-postings", function() {
+        $my_jobposting = new JobOpening($_GET['title'], $_GET['description'], $_GET['name'], $_GET['email'], $_GET['address']);
         $giraffefeeder = new JobOpening('Giraffe Feeder', 'Feeding giraffes three times a day', 'Bob Zookeeper', 'bob@zookeeper.com', '122 Zoo Lane, Oregon Zoo St, Portland OR');
         $personalShopper = new JobOpening('Personal Shopper', 'Shopping for all Christmas and birthday gifts', 'Cruella De Vil', 'cruella@devil.com', '1 Best Road, Portland, OR');
         $shoeShiner = new JobOpening('Shoe Shiner', 'Shining the shoes of rich people', 'Bill Boss', 'billtheboss@me.com', '15 Left Shoe Rd, Portland OR');
-        $jobopeningList = array($giraffefeeder, $personalShopper, $shoeShiner);
+        $jobopeningList = array($my_jobposting, $giraffefeeder, $personalShopper, $shoeShiner);
+        $output = "";
         foreach ($jobopeningList as $joblisted) {
             $jobTitle = $joblisted->getTitle();
             $jobDescription = $joblisted->getDescription();
             $postername = $joblisted->getName();
             $posteremail = $joblisted->getEmail();
             $posteraddress = $joblisted->getAddress();
-            $output = $output . "<!DOCTYPE html>
-            <html>
-            <head>
-            <title>Job Postings</title>
-            </head>
-            <body>
-            <h1>Job Postings</h1>
-            <br>
-                <h3>" . $jobTitle . "</h3>
-                <ol>
-                    <li>" . $jobDescription . "</li>
-                    <li>" . $postername . "</li>
-                    <li>" . $posteremail . "</li>
-                    <li>" . $posteraddress . "</li>
-                </ol>
-            </body>
-            </html>
+            $output = $output . "<h3>Job Title: <span class='titlename'>" . $jobTitle . "</span></h3>
+                <ul>
+                    <li><strong>Description</strong>: " . $jobDescription . "</li>
+                    <li>To inquire about this position, please contact: " . $postername . "</li>
+                    <li>Contact email: " . $posteremail . "</li>
+                    <li>Contact mailing address: " . $posteraddress . "</li>
+                </ul>
         ";
     };
-    return $output;
+
+    return "<!DOCTYPE html>
+    <html>
+    <head>
+    <title>Job Postings</title>
+    <link href='styles.css' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+    <h1>Job Postings</h1>
+    <br>
+    <a href='/submit-opening'>Submit a new job posting!</a>
+    <br>
+    <h2>Current Job Openings:</h2>
+    " . $output . "</body>
+    </html>
+    ";
     });
 
     return $app;

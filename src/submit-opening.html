@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css' type='text/css'>
+    <link href='/../css/styles.css' rel='stylesheet' type='text/css'>
+    <title>Submit a Job Opening</title>
+</head>
+<body>
+    <div class='container'>
+        <h1>Submit a job opening!</h1>
+        <form action='/job-postings'>
+            <div class='form-group'>
+                <label for='title'>Enter Job Title:</label>
+                <input id='title' name='title' class='form-control' type='text' value='Dinosaur caretaker'>
+            </div>
+            <div class='form-group'>
+                <label for='description'>Enter Job Description</label>
+                <input id='description' name='description' class='form-control' type='text' value='Babysit and feed our baby dinosaur'>
+            </div>
+            <div class='form-group'>
+                <label for='name'>Enter poster's name</label>
+                <input id='name' name='name' class='form-control' type='text' value='Jane Doe'>
+            </div>
+            <div class='form-group'>
+                <label for='email'>Enter poster's email</label>
+                <input id='email' name='email' class='form-control' type='text' value='jane.doe@mymail.com'>
+            </div>
+            <div class='form-group'>
+                <label for='address'>Enter poster's address</label>
+                <input id='address' name='address' class='form-control' type='text' value='6789 One Lane Road, Portland OR 97229'>
+            </div>
+
+            <button type='submit' class='btn-success'>Submit</button>
+        </form>
+    </div>
+</body>
+</html>
